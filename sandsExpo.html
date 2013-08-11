@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<meta name="viewport" content="width=768px, minimum-scale=1.0, maximum-scale=1.0"/>
+<!-- test comment from andrew -->
+
+<html>
+  <head>
+    <title>Andy's Demo</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css">
+    <script
+       src="js/jquery-1.7.2.min.js"
+       id="jquery_script"
+       type="text/javascript">
+    </script>
+    <script
+       src="js/jquery-ui-1.8.20.custom.min.js"
+       id="jquery_script"
+       type="text/javascript">
+    </script>
+    <script
+       src="js/ipad.js"
+       type="text/javascript"
+       id="ipad_scripts">
+    </script>
+    <script
+       src="js/data.js"
+       type="text/javascript"
+       id="data_json">
+    </script>
+    <script
+       src="js/main.js"
+       type="text/javascript"
+       id="code_script">
+    </script>
+    <script id="jquery_init">
+      $(function() {
+        $.ajax({
+          //url:"sandsExpo.svg",
+          url:"expoMain.svg",
+          cache: false
+        }).done(function(results) {
+          $('#main_svg_panel').html(results.getElementsByTagName("svg"));
+        });
+
+        $.ajax({
+          //url:"sandsExpo.svg",
+          url:"expoThumb.svg",
+          cache: false
+        }).done(function(r) {
+          $('#map_ctrl').html(r.getElementsByTagName("svg"));
+        });
+
+        initRooms();
+        $('#clientInput').autocomplete({
+          source: clientList
+        });
+        $('#bookingDetails').dialog({
+          autoOpen:false
+        });
+        $('#clientInfo').dialog({
+          autoOpen:false
+        });
+        $(':button').button();
+        $('#file_buttonset').buttonset();
+        $('#day_radio').buttonset();
+        initTouch();
+      });
+    </script>
+  </head>
+<body ontouchmove="blockMove(event)">
+  <div id="wrap">
+    
+<div id="main_svg_panel">load from ajax</div>
+
+  <div id="ctrl_panel" class="ui-widget ui-corner-all">
+    <div id="file_opts" class="ui-widget-content ui-corner-all">
+      <div id="file_buttonset">
+        <button id="new_book_btn">New Booking</button>
+        <button id="load_book_btn">Load</button>
+      </div>
+      <br/>
+      <label for="clientInput">Client: </label>
+      <input id="clientInput" onkeyup="updateClientHistory()"/>
+    </div>
+    <div class="ui-widget-content ui-corner-all">
+      <div id="client_buttonset">
+      <button id="cust_hist_btn" disabled="true" onclick="$('#clientInfo').dialog('open')">Client History</button>
+      <button id="book_details_btn" onclick="updateBookingDetails(); $('#bookingDetails').dialog('open')">Booking Details</button>
+    </div>
+  </div>
+    <div id="selection_summary" class="ui-widget-content ui-corner-all">
+      <table style="width:100%">
+        <thead class="ui-widget-header ui-corner-all"><tr><td colspan="2">Selection Summary</td></tr></thead>
+        <tbody>
+        <tr><td>Rooms :</td><td><span id="selectedRooms">None</span></td></tr>
+        <tr><td>Total Sq. Ft. :</td><td><span id="selectedSqFt">0</span></td></tr>
+        <tr><td>Total Banquet :</td><td><span id="selectedBanquet">0</span></td></tr>
+        <tr><td>Total Theater :</td><td><span id="selectedTheater">0</span></td></tr>
+      </tbody>
+      </table>
+    </div><br/>
+    <div id="map_ctrl">SVG map ctrl here</div><br/>
+    <div id="test"></div><div>
+      <div id="day_radio">
+        <input type="radio" id="radio_sun" name="day_radio" onclick="selectDay(0)" checked><label for="radio_sun">Sun</label>
+        <input type="radio" id="radio_mon" name="day_radio"onclick="selectDay(1)"><label for="radio_mon">Mon</label>
+        <input type="radio" id="radio_tues" name="day_radio"onclick="selectDay(2)"><label for="radio_tues">Tues</label>
+        <input type="radio" id="radio_wed" name="day_radio"onclick="selectDay(3)"><label for="radio_wed">Wed</label>
+        <input type="radio" id="radio_thurs" name="day_radio" onclick="selectDay(4)"><label for="radio_thurs">Thurs</label>
+      </div>
+    </div>
+  </div>
+
+  <!--dialogs-->
+  <div id="clientInfo" title="Client Info">
+    <table><tbody>
+      <tr><td>Name: </td><td><span id="clientName"></span></td></tr>
+      <tr><td>Avg. Requested Space: </td><td><span id="clientAvgReqSpace"></span></td></tr>
+      <tr><td>Avg. Used Space: </td><td><span id="clientAvgUsedSpace"></span></td></tr>
+  </tbody></table>
+  </div>
+  <div id="bookingDetails" title="Booking Details">
+    <table><tbody>
+        <tr><td>Rooms: </td><td><input id="bookedRooms" type="text" onchange="updateBookingDetails()"></input></td></tr>
+        <tr><td>Estimated Cost: </td><td><span id="estimatedCost"></span></td></tr>
+        <tr><td>Estimated Cost/Room: </td><td><span id="estimatedCostRoom"></span></td></tr>
+    </tbody></table>
+  </div>
+
+</div> <!--wrap-->
+
+</body>
+</html>

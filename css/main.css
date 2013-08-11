@@ -1,0 +1,36 @@
+/* landscape mode is default */
+#wrap {
+  width:1024px;
+}
+#ctrl_panel {
+  position:relative;
+  width:266px;
+  /*padding:.6em;*/
+  float:left;
+  /*background-color:red;*/
+}
+#main_svg_panel {
+  position:relative;
+  float:left;
+  width:708px;
+  left:0px;
+}
+
+@media only screen and (orientation:portrait) {
+  /* portrait mode */
+  #wrap {
+    width:768px;
+  }
+  #main_svg_panel {
+    float:left;
+    position:relative;
+    right:0;
+    left:30px;
+    width:708px;
+  }
+  #ctrl_panel {
+    width:768px;
+    /*/background-color:blue;*/
+  }
+}
+
