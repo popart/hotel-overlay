@@ -1,6 +1,8 @@
-javascript-example
+Hotel UI overlay
 ==================
 
 The initial prototype for the hotel space booking project.
 
-This was used to land the contract with DecisionStreet, and does not include final or refactored code.
+Using javascript and SVG's.
+
+
